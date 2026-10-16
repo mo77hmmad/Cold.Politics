@@ -1,203 +1,325 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cold Politics | سيرفر الواقعية السياسية</title>
-<meta name="description" content="مساحة للنقاش السياسي والتحليل الاستراتيجي بعيداً عن العاطفة والشعارات. انضم إلى سيرفر Cold Politics على ديسكورد.">
+<title>Cold Politics</title>
+<meta name="description" content="سيرفر الواقعية السياسية على ديسكورد: نقاش وتحليل استراتيجي بعيداً عن العاطفة والشعارات.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  :root {
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    --bg: #e9eef1;
-    --surface: #f6f9fa;
-    --ink: #14222c;
-    --muted: #5a6c78;
-    --line: #c3d0d8;
-    --frost: #3e7492;
-    --signal: #b8352a;
-    --signal-ink: #ffffff;
-    --font-display: "Reem Kufi", "IBM Plex Sans Arabic", system-ui, sans-serif;
-    --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+/* Layout: a strategic briefing file — frozen steel ground, a cartographic grid, one icy accent; right-to-left reading, content column ~68rem */
+:root {
+  --bg: #0d1419;
+  --bg-2: #121c23;
+  --fg: #dfe8ed;
+  --muted: #8a9ba6;
+  --line: #24333d;
+  --ice: #8fd3ee;
+  --ice-ink: #06212c;
+  --warm: #c98b6b;
+  --grid: rgba(143, 211, 238, 0.06);
+  --display: "Reem Kufi", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #eef3f5; --bg-2: #e2eaee; --fg: #13212a; --muted: #52646f; --line: #c4d2d9;
+    --ice: #13698c; --ice-ink: #f2fbff; --warm: #9a5536; --grid: rgba(19, 105, 140, 0.07);
+    color-scheme: light;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0e171d;
-      --surface: #16232c;
-      --ink: #e4edf1;
-      --muted: #93a7b3;
-      --line: #28394544;
-      --line: #2a3b47;
-      --frost: #7fb4d1;
-      --signal: #e0574a;
-      --signal-ink: #14100f;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0e171d;
-    --surface: #16232c;
-    --ink: #e4edf1;
-    --muted: #93a7b3;
-    --line: #2a3b47;
-    --frost: #7fb4d1;
-    --signal: #e0574a;
-    --signal-ink: #14100f;
-  }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-  *, *::before, *::after { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 1.0625rem;
-    line-height: 1.85;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; }
-  :focus-visible { outline: 3px solid var(--frost); outline-offset: 3px; border-radius: 4px; }
+}
+:root[data-theme="light"] {
+  --bg: #eef3f5; --bg-2: #e2eaee; --fg: #13212a; --muted: #52646f; --line: #c4d2d9;
+  --ice: #13698c; --ice-ink: #f2fbff; --warm: #9a5536; --grid: rgba(19, 105, 140, 0.07);
+  color-scheme: light;
+}
 
-  .wrap { width: 100%; max-width: 62rem; margin-inline: auto; padding-inline: 1.25rem; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 48px 48px,
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  padding-inline: 20px;
+}
+.wrap { max-width: 68rem; margin-inline: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
 
-  /* top bar */
-  header.bar { display: flex; align-items: center; justify-content: space-between; padding-block: 1.25rem; }
-  .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: .02em; direction: ltr; }
-  .btn {
-    display: inline-block; text-decoration: none; font-weight: 600; font-family: var(--font-body);
-    background: var(--signal); color: var(--signal-ink);
-    padding: .85rem 1.75rem; border-radius: 6px; line-height: 1.3;
-    transition: transform .15s ease, filter .15s ease;
-  }
-  .btn:hover { filter: brightness(1.08); transform: translateY(-2px); }
-  .btn.small { padding: .55rem 1.1rem; font-size: .95rem; }
-  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+/* top bar */
+.bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-block: 22px; border-bottom: 1px solid var(--line);
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted);
+  flex-wrap: wrap;
+}
+.bar .brand { font-family: var(--display); font-size: 1.05rem; letter-spacing: 0; color: var(--fg); }
+.bar .brand span { color: var(--ice); }
 
-  /* hero */
-  .hero { padding-block: clamp(2.5rem, 8vw, 6rem) clamp(2.5rem, 7vw, 5rem); }
-  .hero h1 {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(2.6rem, 9vw, 5.5rem); line-height: 1.15; margin: 0 0 .5rem;
-  }
-  .hero .sub { font-size: clamp(1.15rem, 3vw, 1.5rem); color: var(--frost); font-weight: 600; margin: 0 0 2rem; }
+/* hero */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: end;
+  padding-block: 72px 64px;
+}
+.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ice); }
+h1 {
+  font-family: var(--display); font-weight: 700; line-height: 1.05;
+  font-size: clamp(3.4rem, 10vw, 7.2rem); margin: 10px 0 6px; text-wrap: balance;
+}
+.latin { font-family: var(--mono); font-size: clamp(1rem, 2.4vw, 1.35rem); letter-spacing: 0.3em; color: var(--muted); direction: ltr; text-align: right; }
+.lede { max-width: 38rem; margin-top: 28px; font-size: 1.15rem; color: var(--fg); }
+.lede strong { color: var(--ice); font-weight: 600; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--body); font-weight: 600; font-size: 1.05rem;
+  padding: 14px 26px; border-radius: 3px; text-decoration: none; cursor: pointer;
+  border: 1px solid var(--ice); transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+.btn-primary { background: var(--ice); color: var(--ice-ink); }
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--ice); font-family: var(--mono); font-size: 0.85rem; font-weight: 500; }
+.btn-ghost:hover { background: var(--ice); color: var(--ice-ink); }
+.btn svg { width: 22px; height: 22px; flex: none; }
 
-  .contrast { border-block: 1px solid var(--line); margin-block: 2rem; }
-  .contrast p { margin: 0; padding: 1rem 0; font-size: clamp(1.15rem, 3.2vw, 1.6rem); }
-  .contrast .wish { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1.5px; border-bottom: 1px solid var(--line); }
-  .contrast .real { font-family: var(--font-display); font-weight: 700; }
-  .contrast small { display: block; font-size: .85rem; color: var(--muted); font-family: var(--font-body); font-weight: 400; text-decoration: none; }
+/* thermometer panel — the one signature moment */
+.thermo {
+  border: 1px solid var(--line); background: var(--bg-2); padding: 26px 24px;
+  font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+}
+.thermo h2 { font-family: var(--body); font-size: 0.95rem; font-weight: 600; color: var(--fg); margin: 0 0 18px; }
+.gauge { display: grid; gap: 14px; }
+.g-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 3.2rem; gap: 12px; align-items: center; }
+.g-row .label { font-family: var(--body); font-size: 0.9rem; color: var(--fg); }
+.track { height: 6px; background: var(--line); position: relative; overflow: hidden; }
+.fill { position: absolute; inset-block: 0; right: 0; background: var(--ice); width: var(--v); animation: grow 1.4s cubic-bezier(.2,.7,.2,1) both; }
+.fill.warm { background: var(--warm); }
+.g-row .val { direction: ltr; text-align: left; font-variant-numeric: tabular-nums; color: var(--fg); }
+.thermo .note { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); line-height: 1.6; }
+@keyframes grow { from { width: 0; } }
 
-  .lede { max-width: 40rem; color: var(--ink); margin: 0 0 2rem; }
-  .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+/* sections */
+section { padding-block: 64px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 32px; }
+.sec-head .eyebrow { padding-top: 10px; }
+h2.title { font-family: var(--display); font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.3; margin: 0 0 18px; text-wrap: balance; }
+.prose { max-width: 40rem; color: var(--fg); }
+.prose p { margin: 0 0 14px; }
+.prose .dim { color: var(--muted); }
 
-  /* sections */
-  section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
-  h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4.5vw, 2.4rem); line-height: 1.3; margin: 0 0 1.5rem; }
+/* ledger: wish vs. power */
+.ledger { display: grid; grid-template-columns: 1fr 1fr; margin-top: 36px; border: 1px solid var(--line); }
+.ledger > div { padding: 22px 24px; min-width: 0; }
+.ledger > div + div { border-right: 1px solid var(--line); background: var(--bg-2); }
+.ledger h3 { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; margin: 0 0 12px; }
+.ledger .wish h3 { color: var(--warm); }
+.ledger .power h3 { color: var(--ice); }
+.ledger ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ledger .wish li { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--warm); text-decoration-thickness: 1px; }
 
-  .topics { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; }
-  .topics li { padding: 1.1rem 0; border-top: 1px solid var(--line); }
-  .topics li:last-child { border-bottom: 1px solid var(--line); }
-  .topics strong { display: block; font-family: var(--font-display); font-size: 1.2rem; margin-bottom: .15rem; }
-  .topics span { color: var(--muted); font-size: .98rem; }
-  @media (min-width: 720px) {
-    .topics { grid-template-columns: 1fr 1fr; column-gap: 3rem; }
-    .topics li:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--line); }
-  }
+/* topics */
+.topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 36px; }
+.topic { background: var(--bg); padding: 24px 22px; min-width: 0; }
+.topic .code { font-family: var(--mono); font-size: 0.72rem; color: var(--ice); letter-spacing: 0.1em; direction: ltr; text-align: right; }
+.topic h3 { font-family: var(--body); font-size: 1.12rem; font-weight: 600; margin: 8px 0 6px; }
+.topic p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
 
-  .rule { background: var(--surface); border-inline-start: 5px solid var(--frost); padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 4px; }
-  .rule h2 { margin-bottom: 1.25rem; }
-  .rule ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
-  .rule li { font-size: 1.15rem; font-weight: 500; }
-  .rule li::before { content: ""; display: inline-block; width: .6rem; height: .6rem; background: var(--signal); margin-inline-end: .75rem; transform: rotate(45deg) translateY(-1px); }
+/* method (a real sequence) */
+.method { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; counter-reset: step; }
+.method li { padding: 0 0 0 20px; position: relative; min-width: 0; }
+.method li + li { border-right: 1px solid var(--line); padding-right: 20px; }
+.method .n { font-family: var(--mono); font-size: 0.78rem; color: var(--ice); }
+.method strong { display: block; font-family: var(--display); font-weight: 500; font-size: 1.35rem; margin: 6px 0 4px; }
+.method span.d { color: var(--muted); font-size: 0.95rem; line-height: 1.7; display: block; }
 
-  .creed { text-align: center; }
-  .creed p { font-family: var(--font-display); font-size: clamp(1.4rem, 4.5vw, 2.1rem); line-height: 1.7; margin: 0 auto; max-width: 36rem; }
-  .creed p span { display: block; }
+/* creed */
+.creed { display: grid; gap: 4px; margin-top: 10px; }
+.creed p { font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 5vw, 3.2rem); line-height: 1.35; margin: 0; text-wrap: balance; }
+.creed p:last-child { color: var(--ice); }
 
-  .final { text-align: center; border-top: 1px solid var(--line); }
-  .final p { color: var(--muted); margin: 0 0 1.75rem; }
+/* final CTA */
+.final { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+.invite {
+  font-family: var(--mono); font-size: 0.95rem; direction: ltr; user-select: all;
+  border: 1px dashed var(--line); padding: 10px 14px; color: var(--fg); background: var(--bg-2);
+  overflow-wrap: anywhere;
+}
+.toast { font-family: var(--mono); font-size: 0.8rem; color: var(--ice); min-height: 1.2em; }
 
-  footer { text-align: center; color: var(--muted); font-size: .9rem; padding-block: 1.5rem 2rem; }
+footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .hero h1, .hero .sub, .contrast, .lede, .actions { animation: rise .6s ease both; }
-    .hero .sub { animation-delay: .08s; }
-    .contrast { animation-delay: .16s; }
-    .lede { animation-delay: .24s; }
-    .actions { animation-delay: .3s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  }
-  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-block: 48px; }
+  .sec-head { grid-template-columns: 1fr; gap: 6px; }
+  .topics { grid-template-columns: 1fr 1fr; }
+  .method { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .method li:nth-child(3) { border-right: 0; padding-right: 0; }
+}
+@media (max-width: 560px) {
+  .topics, .ledger, .method { grid-template-columns: 1fr; }
+  .ledger > div + div { border-right: 0; border-top: 1px solid var(--line); }
+  .method li, .method li + li { border-right: 0; padding: 0; }
+  .g-row { grid-template-columns: 6rem minmax(0, 1fr) 2.8rem; }
+  .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fill { animation: none; }
+  .btn { transition: none; }
+}
 </style>
-</head>
-<body>
-  <div class="wrap">
-    <header class="bar">
-      <span class="brand">Cold Politics</span>
-      <a class="btn small" href="https://discord.gg/WfYTMW8x2T" target="_blank" rel="noopener noreferrer">انضم إلى السيرفر</a>
-    </header>
 
-    <main>
-      <div class="hero">
-        <h1>Cold Politics</h1>
-        <p class="sub">سيرفر الواقعية السياسية</p>
+<div class="wrap" dir="rtl" lang="ar">
 
-        <div class="contrast" aria-label="الفرق بين السياسة نظرياً وعملياً">
-          <p class="wish">السياسة كما يُفترض أن تكون نظرياً</p>
-          <p class="real">السياسة كما تُمارَس على أرض الواقع</p>
+  <header class="bar">
+    <div class="brand">Cold <span>Politics</span></div>
+    <div>DISCORD · سيرفر الواقعية السياسية</div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Realpolitik · الواقعية السياسية</div>
+      <h1>السياسة الباردة</h1>
+      <div class="latin">COLD POLITICS</div>
+      <p class="lede">
+        مساحة للنقاش السياسي والتحليل الاستراتيجي <strong>بعيداً عن العاطفة والشعارات</strong> والأحكام الأخلاقية السطحية.
+        نناقش الدولة بوصفها منظومة مصالح ومؤسسات ومراكز نفوذ.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://discord.gg/WfYTMW8x2T" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.7.1 18.2a19.9 19.9 0 0 0 6 3l1.3-2.1a12.9 12.9 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.8 19.8 0 0 0 6-3c.5-5.2-.8-9.8-3.6-13.8ZM8 15.4c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.6 8 10.6s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
+          انضم إلى السيرفر
+        </a>
+        <a class="btn btn-ghost" href="#rule">اقرأ القاعدة ↓</a>
+      </div>
+    </div>
+
+    <aside class="thermo" aria-label="مقياس حرارة النقاش">
+      <h2>ما الذي يحرّك التحليل هنا؟</h2>
+      <div class="gauge">
+        <div class="g-row"><span class="label">موازين القوة</span><div class="track"><div class="fill" style="--v:94%"></div></div><span class="val">94%</span></div>
+        <div class="g-row"><span class="label">المصالح الاقتصادية</span><div class="track"><div class="fill" style="--v:88%"></div></div><span class="val">88%</span></div>
+        <div class="g-row"><span class="label">الحسابات الأمنية</span><div class="track"><div class="fill" style="--v:83%"></div></div><span class="val">83%</span></div>
+        <div class="g-row"><span class="label">الشعارات</span><div class="track"><div class="fill warm" style="--v:3%"></div></div><span class="val">3%</span></div>
+        <div class="g-row"><span class="label">العاطفة</span><div class="track"><div class="fill warm" style="--v:0%"></div></div><span class="val">0°</span></div>
+      </div>
+      <div class="note">مقياس رمزي. درجة حرارة النقاش: باردة عمداً.</div>
+    </aside>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">المنهج</div>
+      <div>
+        <h2 class="title">السياسة كما تُمارَس على أرض الواقع، لا كما يُفترض أن تكون نظرياً</h2>
+        <div class="prose">
+          <p>نحلل القرارات وفق موازين القوة والمصالح الاقتصادية والحسابات الأمنية والعسكرية والعلاقات الدولية.</p>
+          <p class="dim">السؤال هنا ليس «من على حق؟» بل «من يملك القدرة، وما الذي يريده، وما الثمن الذي يستطيع دفعه؟»</p>
         </div>
-
-        <p class="lede">مساحة للنقاش السياسي والتحليل الاستراتيجي بعيداً عن العاطفة والشعارات والأحكام الأخلاقية السطحية. نناقش الدولة بوصفها منظومة مصالح ومؤسسات ومراكز نفوذ، ونحلل القرارات وفق موازين القوة والمصالح الاقتصادية والحسابات الأمنية والعسكرية والعلاقات الدولية.</p>
-
-        <div class="actions">
-          <a class="btn" href="https://discord.gg/WfYTMW8x2T" target="_blank" rel="noopener noreferrer">انضم الآن على ديسكورد</a>
-          <a class="btn ghost" href="#rule">اقرأ القاعدة</a>
+        <div class="ledger">
+          <div class="wish">
+            <h3>ما تتمنى حدوثه</h3>
+            <ul>
+              <li>الخطاب الأخلاقي يحسم الصراعات</li>
+              <li>الشعار يكفي بديلاً عن الخطة</li>
+              <li>الحليف صديق إلى الأبد</li>
+            </ul>
+          </div>
+          <div class="power">
+            <h3>ما تسمح به موازين القوى</h3>
+            <ul>
+              <li>القدرة تحدد سقف الممكن</li>
+              <li>المصلحة تفسّر القرار أكثر من الخطاب</li>
+              <li>التحالفات تتبدل حين تتبدل المصالح</li>
+            </ul>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <section aria-labelledby="topics-h">
-        <h2 id="topics-h">ماذا نناقش؟</h2>
-        <ul class="topics">
-          <li><strong>بنية الأنظمة</strong><span>كيف تتشكل الدول وتعمل مؤسساتها فعلياً.</span></li>
-          <li><strong>صناعة القرار</strong><span>من يقرر، وبأي حسابات، وتحت أي ضغوط.</span></li>
-          <li><strong>اللوبيات والدولة العميقة</strong><span>مراكز النفوذ التي لا تظهر في الواجهة.</span></li>
-          <li><strong>المصالح الاقتصادية</strong><span>المال والموارد كمحرك للسياسات والتحالفات.</span></li>
-          <li><strong>الحسابات الأمنية والعسكرية</strong><span>موازين القوة وما تسمح به وما تمنعه.</span></li>
-          <li><strong>الصراعات الإقليمية والدولية</strong><span>تحليل العلاقات الدولية بعيداً عن الشعارات.</span></li>
-        </ul>
-      </section>
-
-      <section id="rule" aria-labelledby="rule-h">
-        <div class="rule">
-          <h2 id="rule-h">القاعدة</h2>
-          <ul>
-            <li>حلّل الوقائع</li>
-            <li>اختبر الفرضيات</li>
-            <li>ناقش المصالح</li>
-            <li>افصل بين ما تتمنى حدوثه وما تسمح به موازين القوى</li>
-          </ul>
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">ملفات النقاش</div>
+      <div>
+        <h2 class="title">من بنية الأنظمة إلى الصراعات الدولية</h2>
+        <div class="topics">
+          <div class="topic"><div class="code">FILE / REGIMES</div><h3>بنية الأنظمة</h3><p>كيف تُبنى السلطة وتتوزع بين المؤسسات ومراكز النفوذ.</p></div>
+          <div class="topic"><div class="code">FILE / DECISION</div><h3>صناعة القرار</h3><p>من يقرر فعلاً، وبأي أدوات، وتحت أي قيود.</p></div>
+          <div class="topic"><div class="code">FILE / LOBBIES</div><h3>اللوبيات</h3><p>جماعات الضغط والمال وأثرها على السياسات العامة والخارجية.</p></div>
+          <div class="topic"><div class="code">FILE / DEEP STATE</div><h3>الدولة العميقة</h3><p>الأجهزة والشبكات الثابتة التي تبقى حين تتغير الحكومات.</p></div>
+          <div class="topic"><div class="code">FILE / REGIONAL</div><h3>الصراعات الإقليمية</h3><p>التنافس على النفوذ والممرات والموارد في المحيط القريب.</p></div>
+          <div class="topic"><div class="code">FILE / GLOBAL</div><h3>العلاقات الدولية</h3><p>القوى الكبرى، التحالفات، والحسابات الأمنية والعسكرية.</p></div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section class="creed" aria-label="مبدأ السيرفر">
-        <p>
-          <span>لا قداسة للأفكار،</span>
-          <span>ولا حصانة للشخصيات،</span>
-          <span>ولا بديل عن الحجة والتحليل.</span>
-        </p>
-      </section>
+  <section id="rule">
+    <div class="sec-head">
+      <div class="eyebrow">القاعدة</div>
+      <div>
+        <h2 class="title">أربع خطوات قبل أي رأي</h2>
+        <ol class="method">
+          <li><span class="n">01</span><strong>حلّل الوقائع</strong><span class="d">ابدأ بما حدث فعلاً، لا بما يُقال إنه حدث.</span></li>
+          <li><span class="n">02</span><strong>اختبر الفرضيات</strong><span class="d">كل تفسير قابل للنقض حتى يصمد أمام الأدلة.</span></li>
+          <li><span class="n">03</span><strong>ناقش المصالح</strong><span class="d">اسأل: من المستفيد، ومن يدفع الثمن؟</span></li>
+          <li><span class="n">04</span><strong>افصل</strong><span class="d">بين ما تتمنى حدوثه وما تسمح به موازين القوى.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
 
-      <section class="final" aria-labelledby="final-h">
-        <h2 id="final-h">إذا كنت تفضّل الحجة على الشعار، فمكانك هنا</h2>
-        <p>الانضمام مجاني ويتم عبر رابط دعوة ديسكورد.</p>
-        <a class="btn" href="https://discord.gg/WfYTMW8x2T" target="_blank" rel="noopener noreferrer">انضم إلى Cold Politics</a>
-      </section>
-    </main>
+  <section>
+    <div class="creed">
+      <p>لا قداسة للأفكار.</p>
+      <p>ولا حصانة للشخصيات.</p>
+      <p>ولا بديل عن الحجة والتحليل.</p>
+    </div>
+  </section>
 
-    <footer>Cold Politics &mdash; سيرفر الواقعية السياسية</footer>
-  </div>
-</body>
-</html>
+  <section>
+    <div class="final">
+      <div>
+        <h2 class="title" style="margin-bottom:8px">الطاولة جاهزة. أحضر حجتك.</h2>
+        <div class="invite" id="invite">https://discord.gg/WfYTMW8x2T</div>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+      <div class="cta-row" style="margin-top:0">
+        <a class="btn btn-primary" href="https://discord.gg/WfYTMW8x2T" target="_blank" rel="noopener">انضم إلى Cold Politics</a>
+        <button class="btn btn-ghost" id="copy" type="button">نسخ رابط الدعوة</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Cold Politics · سيرفر الواقعية السياسية</span>
+    <span>discord.gg/WfYTMW8x2T</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var toast = document.getElementById('toast');
+  var invite = document.getElementById('invite');
+  var link = 'https://discord.gg/WfYTMW8x2T';
+  function selectInvite() {
+    var r = document.createRange(); r.selectNodeContents(invite);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    var done = function () { toast.textContent = 'تم نسخ الرابط'; };
+    var fail = function () { selectInvite(); toast.textContent = 'الرابط محدد، انسخه يدوياً'; };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(done, fail);
+      } else { fail(); }
+    } catch (e) { fail(); }
+  });
+})();
+</script>
